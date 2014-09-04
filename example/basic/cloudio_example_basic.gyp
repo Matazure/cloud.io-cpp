@@ -51,7 +51,7 @@
         {
             'target_name' : 'client',
             'type' : 'executable',
-            'dependencies': ['../../cloud.io.gyp:cloud.io'],
+            'dependencies': ['../../cloudio.gyp:cloudio'],
             'sources' : ['client.cpp'],
             'product_dir':'./',
 
@@ -60,7 +60,7 @@
         {
             'target_name' : 'server',
             'type' : 'executable',
-            'dependencies': ['../../cloud.io.gyp:cloud.io'],
+            'dependencies': ['../../cloudio.gyp:cloudio'],
             'sources' : ['server.cpp'],
             'product_dir':'./',
         },

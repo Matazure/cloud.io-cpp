@@ -1,7 +1,7 @@
 {
     'targets':[
         {
-            'target_name' : 'cloud.io',
+            'target_name' : 'cloudio',
             'type' : 'none',
             'dependencies': ['./cloudio/websocket/websocket.gyp:websocket'],
 

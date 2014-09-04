@@ -121,7 +121,7 @@ namespace cloudio{
             if (sp_signal){
                 (*sp_signal)(data);
             }else{
-                throw std::runtime_error("no register event. ");
+                ////Log
             }
         }
         

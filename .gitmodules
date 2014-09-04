@@ -1,0 +1,3 @@
+[submodule "cloudio/websocket"]
+	path = cloudio/websocket
+	url = https://github.com/Matazure/websocket-cpp.git

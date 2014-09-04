@@ -27,3 +27,5 @@
 *.Makefile
 *.target.mk
 Makefile
+out
+

@@ -21,4 +21,9 @@
 *.app
 
 *.
+
+
 *.xcodeproj
+*.Makefile
+*.target.mk
+Makefile

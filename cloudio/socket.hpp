@@ -33,7 +33,7 @@ namespace cloudio{
 //        typedef std::function<void (error_code ec)>                     send_callback_type;
         
     public:
-        socket(io_service &iosev): _iosev(iosev), _sp_websocket(nullptr){ }
+        socket(io_service &iosev): _iosev(iosev), _sp_websocket(nullptr), _sp_connect_signal(new connect_signal){ }
         
         void connect(const std::string &url){
             _sp_websocket = websocket::connect(_iosev, url);
@@ -91,6 +91,10 @@ namespace cloudio{
     private:
         void add_listeners(){
             auto self = shared_from_this();
+            _sp_websocket->on_open([self](){
+                self->emit_connect();
+            });
+            
             _sp_websocket->on_message([self](const std::string &msg){
                 std::istringstream ss(msg);
                 boost::property_tree::ptree pt;

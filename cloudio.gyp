@@ -2,7 +2,7 @@
     'targets':[
         {
             'target_name' : 'cloudio',
-            'type' : 'static_library',
+            'type' : 'none',
             'dependencies': ['./cloudio/websocket/websocket.gyp:websocket'],
             's'
 

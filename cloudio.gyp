@@ -1,4 +1,5 @@
 {
+    'includes':['cloudio/websocket/common.gypi'],
     'targets':[
         {
             'target_name' : 'cloudio',

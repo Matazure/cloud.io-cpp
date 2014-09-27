@@ -11,5 +11,24 @@
                 'include_dirs': [ '.'],
             },
         },
+
+        {
+            'target_name' : 'example_basic_client',
+            'type' : 'executable',
+            'product_extension' : 'out',
+            'dependencies': ['cloudio'],
+            'sources' : ['example/basic/client.cpp'],
+            # 'product_dir':'./',
+
+        },
+
+        {
+            'target_name' : 'example_basic_server',
+            'type' : 'executable',
+            'product_extension' : 'out',
+            'dependencies': ['cloudio'],
+            'sources' : ['example/basic/server.cpp'],
+            # 'product_dir':'./',
+        },
     ]
 }

@@ -33,7 +33,8 @@ namespace cloudio{
 //        typedef std::function<void (error_code ec)>                     send_callback_type;
 
     public:
-        socket(io_service &iosev): _iosev(iosev), _sp_websocket(nullptr), _sp_connect_signal(new connect_signal){ }
+        socket(io_service &iosev): _iosev(iosev), _sp_websocket(nullptr), _sp_connect_signal(new connect_signal),
+        _sp_disconnect_signal(new disconnect_signal){ }
 
         void connect(const std::string &url){
             _sp_websocket = websocket::connect(_iosev, url);

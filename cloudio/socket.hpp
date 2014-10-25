@@ -65,11 +65,9 @@ namespace cloudio{
 
         std::string path() const                    { return _sp_websocket->path(); }
 
-//        void emit(const std::string &type, std::string &&msg){
-//
-//        }
-
-        void disconnect();
+        void disconnect(){
+            _sp_websocket->disconnect();
+        }
 
         bool live() const{
             assert(false);  /// todo
@@ -96,6 +94,10 @@ namespace cloudio{
                 self->emit_connect();
             });
 
+            _sp_websocket->on_close([self](){
+                self->emit_disconnect();
+            });
+
             _sp_websocket->on_message([self](const std::string &msg){
                 std::istringstream ss(msg);
                 boost::property_tree::ptree pt;
@@ -108,7 +110,7 @@ namespace cloudio{
                 }
             });
         }
-        
+
         void emit_connect(){
             (*_sp_connect_signal)();
         }

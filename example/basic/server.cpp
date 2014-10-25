@@ -11,6 +11,10 @@ int main(){
         });
 
         sp_socket->emit("test", "I'm from cloudio server test of /.");
+
+        sp_socket->on_disconnect([](){
+            std::cout << "socket disconnect . " << std::endl;
+        });
     });
 
     sp_server->of("/chat")->on_connection([](std::shared_ptr<cloudio::socket> sp_socket){

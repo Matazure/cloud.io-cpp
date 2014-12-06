@@ -10,7 +10,7 @@ int main(){
             std::cout << msg << std::endl;
         });
 
-        sp_socket->emit("test", "I'm from cloudio server test of /.");
+        sp_socket->emit("test", "I'm from cloudio server test of /, 我叫张志民.");
 
         sp_socket->on_disconnect([](){
             std::cout << "socket disconnect . " << std::endl;

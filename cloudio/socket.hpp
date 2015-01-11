@@ -9,7 +9,7 @@ namespace cloudio{
     using std::shared_ptr;
     using std::make_shared;
     using namespace boost::asio;
-    
+    using namespace json11;
     
     class socket : public std::enable_shared_from_this<socket>{
     public:
@@ -26,14 +26,21 @@ namespace cloudio{
         
         typedef boost::signals2::signal<void (const std::string &)>     event_signal;
         typedef typename event_signal::slot_type                        event_slot;
-        
         typedef event_slot                                              callback_slot;
         typedef boost::signals2::signal<void (const std::string &, callback_slot)>  event_callback_signal;
         typedef typename event_callback_signal::slot_type               event_callback_slot;
         
+        typedef boost::signals2::signal<void (const Json &)>            event_signal_json;
+        typedef typename event_signal::slot_type                        event_slot_json;
+        typedef event_slot                                              callback_slot_json;
+        typedef boost::signals2::signal<void (const Json &, callback_slot)>  event_callback_signal_json;
+        typedef typename event_callback_signal::slot_type               event_callback_slot_json;
+        
     public:
-        socket(io_service &iosev): _iosev(iosev), _sp_websocket(nullptr), _sp_connect_signal(new connect_signal),
-        _sp_disconnect_signal(new disconnect_signal){ }
+        socket(io_service &iosev, bool client=true): _iosev(iosev), _sp_websocket(nullptr), _sp_connect_signal(new connect_signal),
+        _sp_disconnect_signal(new disconnect_signal){
+//            is_client(client);
+        }
         
         void connect(const std::string &url){
             _sp_websocket = websocket::connect(_iosev, url);
@@ -51,7 +58,15 @@ namespace cloudio{
             json11::Json json({{"type", type}, {"data", data}});
             _sp_websocket->send(json.dump());
         }
-        
+//        
+//        bool is_client() const{
+//            return _sp_websocket->is_client();
+//        }
+//        
+//        void is_client(bool v){
+//            _sp_websocket->is_client(v);
+//        }
+//        
         std::string path() const                    { return _sp_websocket->path(); }
         
         void disconnect(){
@@ -83,6 +98,16 @@ namespace cloudio{
             
             _event_callbacks[type]->connect(f);
         }
+        
+//        void on_j(const std::string &type, event_slot_json f){
+//            if (!_events_json[type]){
+//                _events_json[type] = make_shared<event_signal_json>();
+//            }
+//            
+//            _events_json[type]->connect(f);
+//        }
+//        
+        
         
     private:
         void add_listeners(){
@@ -152,8 +177,10 @@ namespace cloudio{
         shared_ptr<disconnect_signal>   _sp_disconnect_signal;
         shared_ptr<message_signal>      _sp_message_signal;
         
-        std::map<std::string, shared_ptr<event_signal>>             _events;
-        std::map<std::string, shared_ptr<event_callback_signal>>    _event_callbacks;
+        std::map<std::string, shared_ptr<event_signal>>                     _events;
+        std::map<std::string, shared_ptr<event_callback_signal>>            _event_callbacks;
+        std::map<std::string, shared_ptr<event_signal_json>>                _events_json;
+        std::map<std::string, shared_ptr<event_callback_signal_json>>       _events_callbacks_json;
     };
     
     

@@ -7,7 +7,6 @@ namespace cloudio{
     shared_ptr<server> listen(io_service &iosev, size_t port){
         auto sp_server = make_shared<server>(iosev);
         sp_server->listen(port);
-
         return sp_server;
     }
 
